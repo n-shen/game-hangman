@@ -48,6 +48,7 @@ function App() {
                   element={!user ? <Register /> : <Home />}
                 ></Route>
                 <Route path="/setting" element={<Setting />}></Route>
+                <Route path="/share/:sid" element={<Home />}></Route>
               </Routes>
             </div>
           </div>
