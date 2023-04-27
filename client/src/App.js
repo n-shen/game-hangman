@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
-import { Home, Setting } from "./pages";
+import { Home, Login, Setting } from "./pages";
 
-import { useStateContext } from "./contexts/ContextProvider";
+import { useStateContext } from "./contexts/StateContext";
 import "./App.css";
 
 // import axios from "axios";
@@ -40,6 +40,7 @@ function App() {
             <div>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
+                <Route path="/login" element={<Login />}></Route>
                 <Route path="/setting" element={<Setting />}></Route>
               </Routes>
             </div>

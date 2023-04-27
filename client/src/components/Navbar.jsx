@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useStateContext } from "../contexts/ContextProvider";
+import { useStateContext } from "../contexts/StateContext";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
