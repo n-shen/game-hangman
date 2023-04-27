@@ -4,6 +4,7 @@ const StateContext = createContext();
 
 const shared_info = {
   baseURL: "http://localhost:8080/api/v1",
+  baseURLSharing: "http://localhost:3000/share/",
 };
 
 export const StateContextProvider = ({ children }) => {
