@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+
 import { useStateContext } from "../../contexts/StateContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
+
+import { useCustomizesContext } from "../../hooks/useCustomizesContext";
 
 import axios from "axios";
 
 const CmtTable = () => {
   const { user } = useAuthContext();
+  const { cloud_ctms, dispatch } = useCustomizesContext();
+
   const { shared_info } = useStateContext();
   const baseURL = shared_info.baseURL;
-  const [customizes, setCustomizes] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -18,16 +23,37 @@ const CmtTable = () => {
         })
         .then((response) => {
           if (response.data["success"]) {
-            setCustomizes([...response.data["ctms"]]);
+            dispatch({ type: "SET_CTMS", payload: response.data["ctms"] });
           }
           console.log(response.data);
         });
     }
-  }, [user, baseURL]);
+  }, [user, dispatch, baseURL]);
+
+  const handleDelete = (ele) => {
+    console.log("delete", ele);
+    axios
+      .post(
+        `${baseURL}/ctm/destroy`,
+        {
+          cid: ele._id,
+          fk_user: user.user,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data["success"])
+          dispatch({ type: "DELETE_CTMS", payload: response.data["ctm"] });
+      });
+  };
 
   return (
     <div className="flex w-full justify-center">
-      {user && customizes && (
+      {user && cloud_ctms && (
         <div className="w-10/12 relative overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -47,8 +73,8 @@ const CmtTable = () => {
               </tr>
             </thead>
             <tbody>
-              {customizes &&
-                customizes.map((val, index) => {
+              {cloud_ctms &&
+                cloud_ctms.map((val, index) => {
                   return (
                     <tr
                       key={index}
@@ -63,6 +89,14 @@ const CmtTable = () => {
                       <td className="px-6 py-4">{val.title}</td>
                       <td className="px-6 py-4">{val.words.join(" | ")}</td>
                       <td className="px-6 py-4">{val.description}</td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => handleDelete(val)}
+                          className="text-red-700"
+                        >
+                          <RiDeleteBin6Fill />
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
