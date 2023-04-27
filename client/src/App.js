@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
-import { Home, Login, Register, Setting } from "./pages";
+import { Customizes, Home, Login, Register, Setting } from "./pages";
 
 import { useStateContext } from "./contexts/StateContext";
 import { useAuthContext } from "./hooks/useAuthContext";
@@ -38,6 +38,7 @@ function App() {
             <div>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
+                <Route path="/customize" element={<Customizes />}></Route>
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Home />}

@@ -7,7 +7,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 
 const Navbar = () => {
-  const { activeMenu, setActiveMenu, setScreenSize, screenSize, userProfile } =
+  const { activeMenu, setActiveMenu, setScreenSize, screenSize } =
     useStateContext();
   const { user } = useAuthContext();
   const { logout } = useLogout();

@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App";
 import { StateContextProvider } from "./contexts/StateContext";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { CustomizesContextProvider } from "./contexts/CustomizesContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <StateContextProvider>
-        <App />
+        <CustomizesContextProvider>
+          <App />
+        </CustomizesContextProvider>
       </StateContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
