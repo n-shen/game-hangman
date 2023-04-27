@@ -14,8 +14,10 @@ app.use(express.json());
 // Routers
 import authRouter from "./routes/authRouter.js";
 import gameRouter from "./routes/gameRouter.js";
+import ctmRouter from "./routes/customizeRouter.js";
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/game", gameRouter);
+app.use("/api/v1/ctm", ctmRouter);
 
 mongoose
   .connect(process.env.MDB_LINK)

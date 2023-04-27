@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
@@ -8,13 +8,9 @@ import { useStateContext } from "./contexts/StateContext";
 import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 
-// import axios from "axios";
-
 function App() {
-  const { shared_info, activeMenu } = useStateContext();
+  const { activeMenu } = useStateContext();
   const { user } = useAuthContext();
-
-  // const baseURL = shared_info.baseURL;
 
   return (
     <div>
