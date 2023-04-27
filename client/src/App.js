@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
-import { Home, Login, Setting } from "./pages";
+import { Home, Login, Register, Setting } from "./pages";
 
 import { useStateContext } from "./contexts/StateContext";
 import { useAuthContext } from "./hooks/useAuthContext";
@@ -45,6 +45,10 @@ function App() {
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Home />}
+                ></Route>{" "}
+                <Route
+                  path="/register"
+                  element={!user ? <Register /> : <Home />}
                 ></Route>
                 <Route path="/setting" element={<Setting />}></Route>
               </Routes>
