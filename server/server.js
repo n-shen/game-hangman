@@ -13,9 +13,9 @@ app.use(express.json());
 
 // Routers
 import authRouter from "./routes/authRouter.js";
-// import taskRouter from "./routes/taskRouter.js";
+import gameRouter from "./routes/gameRouter.js";
 app.use("/api/v1/auth", authRouter);
-// app.use("/api/v1/task", taskRouter);
+app.use("/api/v1/game", gameRouter);
 
 mongoose
   .connect(process.env.MDB_LINK)
