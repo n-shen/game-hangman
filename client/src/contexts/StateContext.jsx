@@ -3,10 +3,11 @@ import React, { createContext, useContext, useState } from "react";
 const StateContext = createContext();
 
 const shared_info = {
-  baseURL: "http://localhost/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
+  baseURLSharing: "http://localhost:3000/share/",
 };
 
-export const ContextProvider = ({ children }) => {
+export const StateContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
   const [activeMenu, setActiveMenu] = useState(true);
   const [userProfile, setUserProfile] = useState(undefined);

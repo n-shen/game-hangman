@@ -5,7 +5,7 @@ import { GrSettingsOption } from "react-icons/gr";
 import { IoLogoGameControllerA } from "react-icons/io";
 import { FaHackerrank } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
-import { useStateContext } from "../contexts/ContextProvider";
+import { useStateContext } from "../contexts/StateContext";
 
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, screenSize } = useStateContext();

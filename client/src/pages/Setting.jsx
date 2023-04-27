@@ -1,5 +1,5 @@
 import React from "react";
-import { useStateContext } from "../contexts/ContextProvider";
+import { useStateContext } from "../contexts/StateContext";
 import { Footer } from "../components";
 import axios from "axios";
 

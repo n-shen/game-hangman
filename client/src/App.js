@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
-import { Home, Setting } from "./pages";
+import { Customizes, Home, Login, Register, Setting } from "./pages";
 
-import { useStateContext } from "./contexts/ContextProvider";
+import { useStateContext } from "./contexts/StateContext";
+import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 
 import Leaderboard from "./components/Leaderboard";
 
-// import axios from "axios";
 
 function App() {
-  const { shared_info, activeMenu } = useStateContext();
-
-  // const baseURL = shared_info.baseURL;
+  const { activeMenu } = useStateContext();
+  const { user } = useAuthContext();
 
   return (
     <div>
@@ -42,7 +41,20 @@ function App() {
             <div>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
+                <Route
+                  path="/customize"
+                  element={user ? <Customizes /> : <Login />}
+                ></Route>
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Home />}
+                ></Route>{" "}
+                <Route
+                  path="/register"
+                  element={!user ? <Register /> : <Home />}
+                ></Route>
                 <Route path="/setting" element={<Setting />}></Route>
+                <Route path="/share/:sid" element={<Home />}></Route>
                 <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>
             </div>
