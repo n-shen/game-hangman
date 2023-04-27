@@ -43,7 +43,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/setting" element={<Setting />}></Route>
-                <Route path="/leaderboard" element={<Leaderboard />}></Route>
+                <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>
             </div>
           </div>
