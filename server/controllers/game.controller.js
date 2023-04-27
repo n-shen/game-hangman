@@ -1,4 +1,5 @@
 import { generateDictionary } from "../data/dictionary.js";
+import { Customize } from "../models/customizeModel.js";
 
 export async function getDictionary(req, res) {
   const { difficulty, category } = req.body;
@@ -15,6 +16,26 @@ export async function getDictionary(req, res) {
       dictionary: dictionary,
       difficulty: difficulty,
       category: category,
+    });
+  } catch (e) {
+    res.json({
+      success: false,
+      message: e.message,
+    });
+  }
+}
+
+export async function getSharingDictionary(req, res) {
+  const { sid } = req.body;
+
+  try {
+    if (!sid) throw Error("Missing required header fields!");
+    const dictionary = await Customize.getSharing(sid);
+
+    res.json({
+      success: true,
+      message: "Sharing dictionary fetched successfully!",
+      dictionary: dictionary,
     });
   } catch (e) {
     res.json({

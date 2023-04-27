@@ -87,6 +87,12 @@ customizeSchema.statics.destroyCtm = async function (ctm_id, fk_user) {
   return del_ctm;
 };
 
+customizeSchema.statics.getSharing = async function (sid) {
+  if (!sid) throw Error("Missing required fields!");
+
+  return await this.findOne({ _id: sid });
+};
+
 const Customize = mongoose.model("Customize", customizeSchema);
 
 export { Customize };

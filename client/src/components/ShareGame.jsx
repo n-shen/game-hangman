@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useStateContext } from "../contexts/StateContext";
 
 import axios from "axios";
@@ -9,39 +9,43 @@ const ShareGame = () => {
   const { shared_info } = useStateContext();
   const baseURL = shared_info.baseURL;
 
+  const [sharingProfile, setSharingProfile] = useState(null);
   const [dictionary, setDictionary] = useState([]);
   const [gameSession, setGameSession] = useState(false);
-  const [count, setCount] = useState(0);
 
-  const fetchSharedDictionary = () => {
+  useEffect(() => {
     axios
-      .post(`${baseURL}/game/dictionary`, {
+      .post(`${baseURL}/game/sharingdictionary`, {
         sid: sid,
       })
       .then((response) => {
         if (response.data["success"]) {
-          setDictionary([...response.data["dictionary"]]);
-          setGameSession(true);
+          setSharingProfile(response.data["dictionary"]);
         }
-        console.log(response.data);
       });
-  };
+  }, []);
+
+  useEffect(() => {
+    if (sharingProfile) setDictionary([...sharingProfile["words"]]);
+  }, [sharingProfile]);
 
   return (
     <div className="mt-5 flex w-full justify-center">
-      {!gameSession && (
+      {!gameSession && sharingProfile && dictionary && (
         <section className="bg-white dark:bg-gray-900">
           <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              XXX invited you to play customized Hangman!
+              {sharingProfile["fk_user"]} invited you to play customized
+              Hangman: {sharingProfile["title"]}!
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-              Here at Flowbite we focus on markets where technology, innovation,
-              and capital can unlock long-term value and drive economic growth.
+              {sharingProfile["description"]}
+              {!sharingProfile["description"] &&
+                "The host did not set a description for this game."}
             </p>
             <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <button
-                onClick={() => fetchSharedDictionary()}
+                onClick={() => setGameSession(true)}
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
                 Get started
@@ -59,17 +63,17 @@ const ShareGame = () => {
                   ></path>
                 </svg>
               </button>
-              <a
-                href="#"
+              <NavLink
+                to="/"
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
-                Learn more
-              </a>
+                Exit
+              </NavLink>
             </div>
           </div>
         </section>
       )}
-      {gameSession && <div>{dictionary}</div>}
+      {gameSession && dictionary && <div>{dictionary}</div>}
     </div>
   );
 };
