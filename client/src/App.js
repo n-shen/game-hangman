@@ -8,6 +8,9 @@ import { useStateContext } from "./contexts/StateContext";
 import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 
+import Leaderboard from "./components/Leaderboard";
+
+
 function App() {
   const { activeMenu } = useStateContext();
   const { user } = useAuthContext();
@@ -52,6 +55,7 @@ function App() {
                 ></Route>
                 <Route path="/setting" element={<Setting />}></Route>
                 <Route path="/share/:sid" element={<Home />}></Route>
+                <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>
             </div>
           </div>
