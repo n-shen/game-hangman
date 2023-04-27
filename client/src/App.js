@@ -5,12 +5,14 @@ import { Navbar, Sidebar } from "./components";
 import { Home, Login, Setting } from "./pages";
 
 import { useStateContext } from "./contexts/StateContext";
+import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
 
 // import axios from "axios";
 
 function App() {
   const { shared_info, activeMenu } = useStateContext();
+  const { user } = useAuthContext();
 
   // const baseURL = shared_info.baseURL;
 
@@ -40,7 +42,10 @@ function App() {
             <div>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/login" element={<Login />}></Route>
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Home />}
+                ></Route>
                 <Route path="/setting" element={<Setting />}></Route>
               </Routes>
             </div>
