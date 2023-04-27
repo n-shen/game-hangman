@@ -10,10 +10,7 @@ export const customizesReducer = (state, action) => {
       };
     case "CREATE_CTMS":
       return {
-        cloud_ctms: [
-          action.payload,
-          ...state.cloud_ctms.filter((t) => t._id !== action.payload._id),
-        ],
+        cloud_ctms: [action.payload],
       };
     case "DELETE_CTMS":
       return {

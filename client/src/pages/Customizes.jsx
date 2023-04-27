@@ -8,7 +8,6 @@ import { CmtForm } from "../components";
 const Customizes = () => {
   const { screenSize } = useStateContext();
   const [currTab, setCurrTab] = useState(0);
-  const [creation, setCreation] = useState(false);
 
   const inactiveTab =
     "inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300";
@@ -24,7 +23,7 @@ const Customizes = () => {
               onClick={() => setCurrTab(0)}
               className={currTab === 0 ? activeTab : inactiveTab}
             >
-              History
+              My dictionary
             </button>
           </li>
           <li className="mr-2">
@@ -32,7 +31,7 @@ const Customizes = () => {
               onClick={() => setCurrTab(1)}
               className={currTab === 1 ? activeTab : inactiveTab}
             >
-              Create my own dictionary
+              Create
             </button>
           </li>
         </ul>

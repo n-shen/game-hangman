@@ -1,16 +1,64 @@
 import { useState } from "react";
+import axios from "axios";
+
+import { useStateContext } from "../../contexts/StateContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+// import { useCustomizesContext } from "../../hooks/useCustomizesContext";
 
 const CmtForm = () => {
+  const { shared_info } = useStateContext();
+  const baseURL = shared_info.baseURL;
+  const { user } = useAuthContext();
+  // const { dispatch } = useCustomizesContext();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState(null);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [wordOne, setWordOne] = useState("");
   const [wordTwo, setWordTwo] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(title, description, wordOne, wordTwo);
+    setLoading(true);
+    const words_array = [wordOne, wordTwo];
+    if (user && title && words_array !== []) {
+      handleSave(words_array);
+    } else {
+      setMessage("");
+      setError("Missing required fields!");
+      setLoading(false);
+    }
+  };
+
+  const handleSave = (words_array) => {
+    axios
+      .post(
+        `${baseURL}/ctm/post`,
+        {
+          ctmTitle: title,
+          ctmDescription: description,
+          ctmWords: words_array,
+          ctmUser: user.user,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setLoading(false);
+        console.log(response.data);
+        if (response.data["success"]) {
+          setError("");
+          setMessage("A new dictionary has been created!");
+        } else {
+          setError(response.data["message"]);
+          setMessage("");
+        }
+      });
   };
 
   return (
@@ -38,13 +86,23 @@ const CmtForm = () => {
               </div>
             </div>
           )}
+          {message && (
+            <div role="alert" className="mb-5">
+              <div className="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+                Success
+              </div>
+              <div className="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
+                <p>{message}</p>
+              </div>
+            </div>
+          )}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="title"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Dictionary title
+                Title
               </label>
               <div className="mt-2">
                 <input
@@ -121,6 +179,10 @@ const CmtForm = () => {
 
               <button
                 type="reset"
+                onClick={() => {
+                  setMessage("");
+                  setError("");
+                }}
                 disabled={loading}
                 className="flex ml-3 w-1/3 justify-center rounded-md bg-slate-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
