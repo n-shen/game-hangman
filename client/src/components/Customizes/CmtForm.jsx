@@ -18,11 +18,20 @@ const CmtForm = () => {
   const [loading, setLoading] = useState(false);
   const [wordOne, setWordOne] = useState("");
   const [wordTwo, setWordTwo] = useState("");
+  const [wordThree, setWordThree] = useState("");
+  const [wordFour, setWordFour] = useState("");
+  const [wordFive, setWordFive] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const words_array = [wordOne, wordTwo];
+    const words_array = [
+      wordOne,
+      wordTwo,
+      wordThree,
+      wordFour,
+      wordFive,
+    ].filter((str) => str !== "");
     if (user && title && words_array !== []) {
       handleSave(words_array);
     } else {
@@ -140,7 +149,11 @@ const CmtForm = () => {
               <input
                 type="text"
                 id="wordOne"
-                onChange={(e) => setWordOne(e.target.value)}
+                onChange={(e) =>
+                  setWordOne(
+                    e.target.value.toLowerCase().replace(/[^a-z]/gi, "")
+                  )
+                }
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
@@ -156,7 +169,11 @@ const CmtForm = () => {
               <input
                 type="text"
                 id="wordTwo"
-                onChange={(e) => setWordTwo(e.target.value)}
+                onChange={(e) =>
+                  setWordTwo(
+                    e.target.value.toLowerCase().replace(/[^a-z]/gi, "")
+                  )
+                }
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
               />
@@ -165,6 +182,66 @@ const CmtForm = () => {
                 className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
                 2nd word
+              </label>
+            </div>
+
+            <div className="relative z-0">
+              <input
+                type="text"
+                id="wordThree"
+                onChange={(e) =>
+                  setWordThree(
+                    e.target.value.toLowerCase().replace(/[^a-z]/gi, "")
+                  )
+                }
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                htmlFor="wordThree"
+                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                3rd word
+              </label>
+            </div>
+
+            <div className="relative z-0">
+              <input
+                type="text"
+                id="wordFour"
+                onChange={(e) =>
+                  setWordFour(
+                    e.target.value.toLowerCase().replace(/[^a-z]/gi, "")
+                  )
+                }
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                htmlFor="wordFour"
+                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                4th word
+              </label>
+            </div>
+
+            <div className="relative z-0">
+              <input
+                type="text"
+                id="wordFive"
+                onChange={(e) =>
+                  setWordFive(
+                    e.target.value.toLowerCase().replace(/[^a-z]/gi, "")
+                  )
+                }
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                htmlFor="wordFive"
+                className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                5th word
               </label>
             </div>
 

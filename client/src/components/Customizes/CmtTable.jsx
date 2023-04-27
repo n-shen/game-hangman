@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { AiTwotoneEdit } from "react-icons/ai";
 import { ImLink } from "react-icons/im";
 
 import { useStateContext } from "../../contexts/StateContext";
@@ -156,6 +157,14 @@ const CmtTable = () => {
                       <td className="px-6 py-4">{val.title}</td>
                       <td className="px-6 py-4">{val.words.join(" | ")}</td>
                       <td className="px-6 py-4">{val.description}</td>
+                      {/*<td className="px-1 py-4">*/}
+                      {/*  <button*/}
+                      {/*    onClick={() => handleSharing(val)}*/}
+                      {/*    className="text-blue-700"*/}
+                      {/*  >*/}
+                      {/*    <AiTwotoneEdit />*/}
+                      {/*  </button>*/}
+                      {/*</td>*/}
                       <td className="px-1 py-4">
                         <button
                           onClick={() => handleSharing(val)}
@@ -206,7 +215,7 @@ const CmtTable = () => {
             <ul className="mt-1.5 ml-4 list-disc list-inside">
               <li>Click 'Create' Tab</li>
               <li>
-                Give new dictionary a title and up to 10 words (only a-z
+                Give new dictionary a title and up to five words (only a-z
                 allowed).
               </li>
               <li>Share with your friends by click the copy link icon.</li>
