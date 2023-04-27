@@ -38,7 +38,10 @@ function App() {
             <div>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/customize" element={<Customizes />}></Route>
+                <Route
+                  path="/customize"
+                  element={user ? <Customizes /> : <Login />}
+                ></Route>
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Home />}

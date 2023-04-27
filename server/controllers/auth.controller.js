@@ -17,6 +17,13 @@ export async function login(req, res) {
       success: true,
       message: "User logged in!",
       user: userName,
+      profile: {
+        score: userProfile["score"],
+        duration: userProfile["duration"],
+        rounds_easy: userProfile["rounds_easy"],
+        rounds_normal: userProfile["rounds_normal"],
+        rounds_hard: userProfile["rounds_hard"],
+      },
       token: token,
     });
   } catch (e) {
