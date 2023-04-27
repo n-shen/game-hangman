@@ -7,6 +7,8 @@ import { Home, Setting } from "./pages";
 import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
 
+import Leaderboard from "./components/Leaderboard";
+
 // import axios from "axios";
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/setting" element={<Setting />}></Route>
+                <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>
             </div>
           </div>
