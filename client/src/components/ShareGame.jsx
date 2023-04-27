@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useStateContext } from "../contexts/StateContext";
+import { GameBoard } from "./index";
 
 import axios from "axios";
 
@@ -73,7 +74,17 @@ const ShareGame = () => {
           </div>
         </section>
       )}
-      {gameSession && dictionary && <div>{dictionary}</div>}
+      {gameSession && dictionary && (
+        <div className="justify-center w-10/12">
+          <div className="mb-1 text-base font-medium text-green-700 dark:text-green-500">
+            Progress
+          </div>
+          <div className="w-full bg-gray-300 rounded-full h-2.5 mb-4">
+            <div className="w-1/2 bg-green-600 h-2.5 rounded-full dark:bg-green-500"></div>
+          </div>
+          <GameBoard word={dictionary[0]} />
+        </div>
+      )}
     </div>
   );
 };

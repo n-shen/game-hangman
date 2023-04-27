@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/StateContext";
+import { GameBoard } from "./index";
 
 import axios from "axios";
 
@@ -40,8 +41,8 @@ const Game = () => {
               Let's play Hangman!
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-              Here at Flowbite we focus on markets where technology, innovation,
-              and capital can unlock long-term value and drive economic growth.
+              You should be able to select difficulty level and category later
+              at this page.
             </p>
             <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <button
@@ -73,7 +74,9 @@ const Game = () => {
           </div>
         </section>
       )}
-      {gameSession && <div>{dictionary}</div>}
+
+      {/*TODO: loop repeat random word from dictionary*/}
+      {gameSession && <GameBoard word={dictionary[0]} />}
     </div>
   );
 };
