@@ -17,6 +17,7 @@ export async function login(req, res) {
       success: true,
       message: "User logged in!",
       user: userName,
+      user_id: userProfile._id,
       profile: {
         score: userProfile["score"],
         duration: userProfile["duration"],

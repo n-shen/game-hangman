@@ -40,14 +40,25 @@ const Game = () => {
       });
 
     if (user) {
-      console.log(user.profile);
+      axios
+        .post(`${baseURL}/profile/get`, {
+          uid: user.user_id,
+        })
+        .then((response) => {
+          if (response.data["success"]) {
+            setCurrScore(response.data["profile"]["score"]);
+            // setCurrScore(true);
+          }
+          console.log("latest profile:", response.data);
+        });
     }
   };
 
-  const updateUserRecord = (d) => {
+  const updateUserRecord = () => {
     axios
-      .post(`${baseURL}/game/dictionary`, {
-        difficulty: 0,
+      .post(`${baseURL}/profile/update`, {
+        uid: user.user_id,
+        score: currScore,
       })
       .then((response) => {
         if (response.data["success"]) {
@@ -69,12 +80,16 @@ const Game = () => {
   useEffect(() => {
     console.log("win?:", currWinner);
     if (currWinner) {
-      setCurrScore(currScore + 10);
+      // console.log("category?:", category);
+      if (difficulty === "easy") setCurrScore(currScore + 5);
+      else if (difficulty === "normal") setCurrScore(currScore + 10);
+      else setCurrScore(currScore + 20);
     }
   }, [currWinner]);
 
   useEffect(() => {
     if (currWinner && user) {
+      updateUserRecord();
       console.log("updating user score:", currScore);
       setCurrWinner(false);
     }

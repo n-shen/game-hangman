@@ -76,6 +76,33 @@ userSchema.statics.signIn = async function (user_name, password) {
   return pre_user;
 };
 
+userSchema.statics.getProfile = async function (uid) {
+  if (!uid) throw Error("Missing required fields!");
+
+  const pre_user = await this.findOne({ _id: uid });
+  if (!pre_user) throw Error("User record not found!");
+
+  return pre_user;
+};
+
+userSchema.statics.updateProfile = async function (uid, score) {
+  if (!uid || !score) throw Error("Missing required fields!");
+
+  const updatedProfile = await this.findOneAndUpdate(
+    { _id: uid },
+    {
+      score: score,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedProfile) throw Error("Not a valid profile update request!");
+
+  return updatedProfile;
+};
+
 const User = mongoose.model("User", userSchema);
 
 export { User };
