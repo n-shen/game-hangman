@@ -16,7 +16,7 @@ const Footer = () => {
           rel="noreferrer"
           className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
         >
-          LH-Team-2
+          LH-Team-2 (Nicholas S., Angali G., Elue M.)
         </a>{" "}
         for educational purpose only. Copyrights Reserved @2023
       </p>

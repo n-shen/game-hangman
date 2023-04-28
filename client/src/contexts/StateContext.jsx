@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 const StateContext = createContext();
 
 const shared_info = {
-  baseURL: "http://localhost:8080/api/v1",
-  baseURLSharing: "http://localhost:3000/share/",
+  baseURL: "https://app-hangman.uc.r.appspot.com/api/v1",
+  baseURLSharing: "https://app-hangman.uc.r.appspot.com/share/",
 };
 
 export const StateContextProvider = ({ children }) => {
