@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { GiEarthAmerica, GiFrankensteinCreature } from "react-icons/gi";
+import { GiLevelEndFlag } from "react-icons/gi";
+import { SiFoodpanda } from "react-icons/si";
 import { GrSettingsOption } from "react-icons/gr";
 import { IoLogoGameControllerA } from "react-icons/io";
-import { FaHackerrank } from "react-icons/fa";
+import { BsVectorPen } from "react-icons/bs";
 import { MdOutlineCancel } from "react-icons/md";
 import { useStateContext } from "../contexts/StateContext";
 
@@ -52,7 +53,7 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
             >
-              <GiEarthAmerica />
+              <SiFoodpanda />
               <span>Play Now</span>
             </NavLink>
 
@@ -62,7 +63,7 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
             >
-              <FaHackerrank />
+              <GiLevelEndFlag />
               <span>Leader Board</span>
             </NavLink>
 
@@ -72,7 +73,7 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
             >
-              <GiFrankensteinCreature />
+              <BsVectorPen />
               <span>Customize</span>
             </NavLink>
 

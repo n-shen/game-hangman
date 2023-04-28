@@ -154,7 +154,7 @@ const GameBoard = () => {
     : `Guesses left: ${guessesLeft}`;
 
   return (
-    <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
+    <div className="mt-5 flex w-full justify-center">
       <div className="flex flex-col items-center justify-center mt-4 mb-4">
         <div className="w-full">
           <motion.div

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { useStateContext } from "../../contexts/StateContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import pandaIcon from "../../assets/pandaIcon.png";
 // import { useCustomizesContext } from "../../hooks/useCustomizesContext";
 
 const CmtForm = () => {
@@ -76,8 +77,8 @@ const CmtForm = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
+            src={pandaIcon}
+            alt="Panda Icon"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create a new dictionary
