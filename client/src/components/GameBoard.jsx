@@ -93,14 +93,14 @@ const GameBoard = ({ word }) => {
   //   setSelectedWord(words[Math.floor(Math.random() * words.length)]);
   //   setGuessedLetters([]);
   //   setGuessesLeft(6);
-    
+
   // }
 
 
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
       {/* {word && <div>{word}</div>} */}
-          
+
         <div className="min-h-screen flex flex-col items-center justify-center mt-4 mb-4">
           <div className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-0 mb-12 hover:bg-gray-200 transition-colors duration-300">
             Score: {(isWinner) ? score+10 : score}
@@ -124,9 +124,9 @@ const GameBoard = ({ word }) => {
                 Play Again
               </button>
             </div>
-            
+
           )}
-    
+
       </div>
     </div>
   );
