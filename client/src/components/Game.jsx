@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/StateContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { GameBoard } from "./index";
+import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
 
@@ -154,8 +155,28 @@ const Game = () => {
       )}
 
       {gameSession && currScore && (
-        <div className="flex w-full justify-center">
-          <p>Score: {currScore}</p>
+        <div className="w-full justify-center">
+          <div className="title flex justify-center items-start mt-0">
+            {titleLetters}
+          </div>
+
+          <div className="hidden lg:block title flex justify-center items-start mt-0">
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600  dark:focus:ring-blue-800">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                {category}
+              </span>
+            </div>
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                {difficulty}
+              </span>
+            </div>
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                Score {currScore}
+              </span>
+            </div>
+          </div>
         </div>
       )}
       <div className="mt-5 flex w-full justify-center">

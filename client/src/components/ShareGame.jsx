@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useStateContext } from "../contexts/StateContext";
 import { GameBoard } from "./index";
+import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
 
@@ -88,6 +89,9 @@ const ShareGame = () => {
         )}
         {gameSession && currWord && (
           <div className="justify-center w-10/12">
+            <div className="title flex justify-center items-start mt-0">
+              {titleLetters}
+            </div>
             <div className="mb-1 text-base font-medium text-green-700 dark:text-green-500">
               Progress
             </div>

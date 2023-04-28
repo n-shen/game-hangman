@@ -74,35 +74,9 @@ const GameBoard = () => {
     ? "You lose!"
     : `Guesses left: ${guessesLeft}`;
 
-  const titleLetters = "HANGMAN".split("").map((letter, index) => (
-    <div
-      key={index}
-      className={`w-12 h-12 text-white rounded-full font-bold flex items-center justify-center mr-2 ${
-        index === 0
-          ? "bg-green-500"
-          : index === 1
-          ? "bg-pink-500"
-          : index === 2
-          ? "bg-purple-500"
-          : index === 3
-          ? "bg-blue-500"
-          : index === 4
-          ? "bg-green-500"
-          : index === 5
-          ? "bg-red-500"
-          : "bg-pink-500"
-      }`}
-    >
-      {letter}
-    </div>
-  ));
-
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
       <div className="flex flex-col items-center justify-center mt-4 mb-4">
-        <div className="title flex justify-center items-start mt-0">
-          {titleLetters}
-        </div>
         <div className="flex flex-wrap mb-8 mt-10">{wordLetters}</div>
         <div className="flex flex-wrap pl-4">{keyboardLetters}</div>
         <p
@@ -120,5 +94,27 @@ const GameBoard = () => {
     </div>
   );
 };
+export const titleLetters = "HANGMAN".split("").map((letter, index) => (
+  <div
+    key={index}
+    className={`lg:w-12 lg:h-12 xs:h-10 text-white rounded-full font-bold flex items-center justify-center mr-2 ${
+      index === 0
+        ? "bg-green-500"
+        : index === 1
+        ? "bg-pink-500"
+        : index === 2
+        ? "bg-purple-500"
+        : index === 3
+        ? "bg-blue-500"
+        : index === 4
+        ? "bg-green-500"
+        : index === 5
+        ? "bg-red-500"
+        : "bg-pink-500"
+    }`}
+  >
+    {letter}
+  </div>
+));
 
 export default GameBoard;
