@@ -76,6 +76,53 @@ userSchema.statics.signIn = async function (user_name, password) {
   return pre_user;
 };
 
+userSchema.statics.getProfile = async function (uid) {
+  if (!uid) throw Error("Missing required fields!");
+
+  const pre_user = await this.findOne({ _id: uid });
+  if (!pre_user) throw Error("User record not found!");
+
+  return pre_user;
+};
+
+userSchema.statics.updateProfile = async function (
+  uid,
+  score,
+  easy,
+  normal,
+  hard
+) {
+  if (!uid || !score) throw Error("Missing required fields!");
+
+  const updatedProfile = await this.findOneAndUpdate(
+    { _id: uid },
+    {
+      score: score,
+      rounds_easy: easy,
+      rounds_normal: normal,
+      rounds_hard: hard,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedProfile) throw Error("Not a valid profile update request!");
+
+  return updatedProfile;
+};
+
+userSchema.statics.getRank = async function () {
+  const ranking = await this.find({})
+    .select("user_name -_id score rounds_easy rounds_normal rounds_hard")
+    .sort({
+      score: -1,
+    });
+  if (!ranking) throw Error("User record not found!");
+
+  return ranking;
+};
+
 const User = mongoose.model("User", userSchema);
 
 export { User };

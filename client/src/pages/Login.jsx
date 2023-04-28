@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { useStateContext } from "../contexts/StateContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -8,8 +9,24 @@ const Login = () => {
 
   const { isLoading, error, server_login } = useLogin();
 
+  const {
+    setNewRound,
+    setCurrScore,
+    setCurrWinner,
+    setCurrEasy,
+    setCurrNormal,
+    setCurrHard,
+  } = useStateContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setNewRound(true);
+    setCurrScore(0);
+    setCurrWinner(false);
+    setCurrEasy(0);
+    setCurrNormal(0);
+    setCurrHard(0);
+
     await server_login(username, password);
   };
 

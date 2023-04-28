@@ -3,46 +3,31 @@ import { useStateContext } from "../contexts/StateContext";
 import "tailwindcss/tailwind.css";
 import "./GameBoard.css";
 
-import axios from "axios";
-
-const GameBoard = ({ word }) => {
-  const { shared_info } = useStateContext();
-  const baseURL = shared_info.baseURL;
+const GameBoard = () => {
+  const { currWord, newRound, setNewRound, setCurrWinner } = useStateContext();
 
   const [roundTime, setRoundTime] = useState(0);
-  const words = ["react", "javascript", "programming", "frontend", "backend"];
-  const [selectedWord, setSelectedWord] = useState(
-    words[Math.floor(Math.random() * words.length)]
-  );
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [guessesLeft, setGuessesLeft] = useState(6);
-  const [score, setScore] = useState(0);
-  const [answer, setAnswer] = useState("");
-  const [isGameOver, setIsGameOver] = useState(false);
 
   const gameOver = guessesLeft === 0;
-  const isWinner = selectedWord
+  const isWinner = currWord
     .split("")
     .every((letter) => guessedLetters.includes(letter));
 
   useEffect(() => {
     setAnswer(selectedWord);
     if (guessesLeft === 0 || isWinner) {
+      if (isWinner) setCurrWinner(true);
       setIsGameOver(true);
     }
   }, [guessesLeft, isWinner, selectedWord]);
 
-  const updateUserRecord = (d) => {
-    axios
-      .post(`${baseURL}/game/dictionary`, {
-        difficulty: 0,
-      })
-      .then((response) => {
-        if (response.data["success"]) {
-        }
-        console.log(response.data);
-      });
-  };
+  useEffect(() => {
+    setGuessedLetters([]);
+    setGuessesLeft(6);
+    setNewRound(false);
+  }, [newRound, setNewRound]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -62,7 +47,7 @@ const GameBoard = ({ word }) => {
   const handleGuess = (letter) => {
     if (!guessedLetters.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
-      if (!selectedWord.includes(letter)) {
+      if (!currWord.includes(letter)) {
         setGuessesLeft(guessesLeft - 1);
       }
     }
@@ -83,60 +68,17 @@ const GameBoard = ({ word }) => {
       </button>
     ));
 
-  const wordLetters = selectedWord
-    .split("")
-    .map((letter) => (
-      <span className="mx-2 mb-2 text-2xl">
-        {guessedLetters.includes(letter) ? letter : "_"}
-      </span>
-    ));
+  const wordLetters = currWord.split("").map((letter, index) => (
+    <span key={index} className="mx-2 mb-2 text-2xl">
+      {guessedLetters.includes(letter) ? letter : "_"}
+    </span>
+  ));
 
   const statusMessage = isWinner
     ? "You win!"
     : gameOver
     ? "You lose!"
     : `Guesses left: ${guessesLeft}`;
-
-  const restartGame = () => {
-    setSelectedWord(words[Math.floor(Math.random() * words.length)]);
-    setGuessedLetters([]);
-    setGuessesLeft(6);
-    if (isWinner) {
-      setScore(score + 10);
-    }
-    setAnswer("");
-    setIsGameOver(false);
-  };
-
-  const titleLetters = "HANGMAN".split("").map((letter, index) => (
-    <div
-      key={index}
-      className={`w-12 h-12 text-white rounded-full font-bold flex items-center justify-center mr-2 ${
-        index === 0
-          ? "bg-green-500"
-          : index === 1
-          ? "bg-pink-500"
-          : index === 2
-          ? "bg-purple-500"
-          : index === 3
-          ? "bg-blue-500"
-          : index === 4
-          ? "bg-green-500"
-          : index === 5
-          ? "bg-red-500"
-          : "bg-pink-500"
-      }`}
-    >
-      {letter}
-    </div>
-  ));
-
-  // const playAgain = () => {
-  //   setSelectedWord(words[Math.floor(Math.random() * words.length)]);
-  //   setGuessedLetters([]);
-  //   setGuessesLeft(6);
-
-  // }
 
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
@@ -158,6 +100,7 @@ const GameBoard = ({ word }) => {
         <div className="flex flex-wrap pl-4 items-center justify-center">
           {keyboardLetters}
         </div>
+
         <p
           className={`text-xl md:text-2xl font-bold mt-8 ${
             isWinner
@@ -169,19 +112,31 @@ const GameBoard = ({ word }) => {
         >
           {statusMessage}
         </p>
-        {(isWinner || gameOver) && (
-          <div className="flex flex-col items-center justify-center mt-3">
-            <button
-              className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-2 hover:bg-gray-200 transition-colors duration-300"
-              onClick={restartGame}
-            >
-              Play Again
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
 };
+export const titleLetters = "HANGMAN".split("").map((letter, index) => (
+  <div
+    key={index}
+    className={`lg:w-12 lg:h-12 xs:h-10 text-white rounded-full font-bold flex items-center justify-center mr-2 ${
+      index === 0
+        ? "bg-green-500"
+        : index === 1
+        ? "bg-pink-500"
+        : index === 2
+        ? "bg-purple-500"
+        : index === 3
+        ? "bg-blue-500"
+        : index === 4
+        ? "bg-green-500"
+        : index === 5
+        ? "bg-red-500"
+        : "bg-pink-500"
+    }`}
+  >
+    {letter}
+  </div>
+));
 
 export default GameBoard;

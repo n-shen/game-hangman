@@ -6,3 +6,4 @@ export { default as GameBoard } from "./GameBoard";
 export { default as ShareGame } from "./ShareGame";
 export { default as CmtTable } from "./Customizes/CmtTable";
 export { default as CmtForm } from "./Customizes/CmtForm";
+export { default as LeaderBoard } from "./LeaderBoard";

@@ -1,12 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/StateContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { GameBoard } from "./index";
+import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
 
 const Game = () => {
-  const { shared_info } = useStateContext();
+  const {
+    shared_info,
+    currWord,
+    setCurrWord,
+    setNewRound,
+    currScore,
+    setCurrScore,
+    currWinner,
+    setCurrWinner,
+    currEasy,
+    setCurrEasy,
+    currNormal,
+    setCurrNormal,
+    currHard,
+    setCurrHard,
+  } = useStateContext();
   const baseURL = shared_info.baseURL;
+
+  const { user } = useAuthContext();
 
   const [dictionary, setDictionary] = useState([]);
   const [difficulty, setDifficulty] = useState("easy");
@@ -26,14 +45,74 @@ const Game = () => {
         }
         console.log(response.data);
       });
+
+    if (user) {
+      axios
+        .post(`${baseURL}/profile/get`, {
+          uid: user.user_id,
+        })
+        .then((response) => {
+          if (response.data["success"]) {
+            setCurrScore(response.data["profile"]["score"]);
+            setCurrEasy(response.data["profile"]["rounds_easy"]);
+          }
+          console.log("latest profile:", response.data);
+        });
+    }
+  };
+
+  const updateUserRecord = () => {
+    axios
+      .post(`${baseURL}/profile/update`, {
+        uid: user.user_id,
+        score: currScore,
+        easy: currEasy,
+        normal: currNormal,
+        hard: currHard,
+      })
+      .then((response) => {
+        if (response.data["success"]) {
+        }
+        console.log(response.data);
+      });
   };
 
   useEffect(() => {
     console.log("dictionary", dictionary);
+    if (dictionary)
+      setCurrWord(dictionary[Math.floor(Math.random() * dictionary.length)]);
   }, [dictionary]);
 
+  useEffect(() => {
+    console.log(currWord);
+  }, [currWord]);
+
+  useEffect(() => {
+    console.log("win?:", currWinner);
+    if (currWinner) {
+      if (difficulty === "easy") {
+        setCurrScore(currScore + 5);
+        setCurrEasy(currEasy + 1);
+      } else if (difficulty === "normal") {
+        setCurrScore(currScore + 10);
+        setCurrNormal(currNormal + 1);
+      } else {
+        setCurrScore(currScore + 20);
+        setCurrHard(currHard + 1);
+      }
+    }
+  }, [currWinner]);
+
+  useEffect(() => {
+    if (currWinner && user) {
+      updateUserRecord();
+      console.log("updating user score:", currScore);
+      setCurrWinner(false);
+    }
+  }, [currScore]);
+
   return (
-    <div className="mt-5 flex w-full justify-center">
+    <div className="mt-5 justify-center">
       {!gameSession && (
         <section className="bg-white dark:bg-gray-900">
           <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
@@ -75,8 +154,55 @@ const Game = () => {
         </section>
       )}
 
-      {/*TODO: loop repeat random word from dictionary*/}
-      {gameSession && <GameBoard word={dictionary[0]} />}
+      {gameSession && currScore && (
+        <div className="w-full justify-center">
+          <div className="title flex justify-center items-start mt-0">
+            {titleLetters}
+          </div>
+
+          <div className="hidden lg:block title flex justify-center items-start mt-0">
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600  dark:focus:ring-blue-800">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                {category}
+              </span>
+            </div>
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                {difficulty}
+              </span>
+            </div>
+            <div className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600">
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md">
+                Score {currScore}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="mt-5 flex w-full justify-center">
+        {gameSession && currWord && (
+          <div className="w-10/12">
+            <GameBoard word={currWord} />
+          </div>
+        )}
+      </div>
+
+      {gameSession && currWord && (
+        <div className="mt-5 flex w-full justify-center">
+          <button
+            className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-2 hover:bg-gray-200 transition-colors duration-300"
+            onClick={() => {
+              setCurrWord(
+                dictionary[Math.floor(Math.random() * dictionary.length)]
+              );
+              setNewRound(true);
+              setCurrWinner(false);
+            }}
+          >
+            New Round
+          </button>
+        </div>
+      )}
     </div>
   );
 };
