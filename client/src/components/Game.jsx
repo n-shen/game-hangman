@@ -66,9 +66,17 @@ const Game = () => {
 
     if (user) {
       axios
-        .post(`${baseURL}/profile/get`, {
-          uid: user.user_id,
-        })
+        .post(
+          `${baseURL}/profile/get`,
+          {
+            uid: user.user_id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        )
         .then((response) => {
           if (response.data["success"]) {
             setCurrScore(response.data["profile"]["score"]);
@@ -83,13 +91,21 @@ const Game = () => {
 
   const updateUserRecord = () => {
     axios
-      .post(`${baseURL}/profile/update`, {
-        uid: user.user_id,
-        score: currScore,
-        easy: currEasy,
-        normal: currNormal,
-        hard: currHard,
-      })
+      .post(
+        `${baseURL}/profile/update`,
+        {
+          uid: user.user_id,
+          score: currScore,
+          easy: currEasy,
+          normal: currNormal,
+          hard: currHard,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.data["success"]) {
           setCurrWinner(false);

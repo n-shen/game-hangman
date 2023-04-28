@@ -1,4 +1,6 @@
 import express from "express";
+import validAuth from "../middleware/validAuth.js";
+
 import {
   getProfile,
   updateProfile,
@@ -6,6 +8,7 @@ import {
 
 const profileRouter = express.Router();
 
+profileRouter.use(validAuth);
 profileRouter.post("/get", getProfile);
 profileRouter.post("/update", updateProfile);
 
