@@ -4,7 +4,7 @@ const StateContext = createContext();
 
 const shared_info = {
   baseURL: "https://app-hangman.uc.r.appspot.com/api/v1",
-  baseURLSharing: "https://app-hangman.uc.r.appspot.com/?share=",
+  baseURLSharing: "https://hangman.ntec.app/?share=",
 };
 
 export const StateContextProvider = ({ children }) => {
