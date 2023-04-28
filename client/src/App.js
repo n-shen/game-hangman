@@ -57,7 +57,10 @@ function App() {
                   path="/register"
                   element={!user ? <Register /> : <Home />}
                 ></Route>
-                <Route path="/setting" element={<Setting />}></Route>
+                <Route
+                  path="/setting"
+                  element={user ? <Setting /> : <Login />}
+                ></Route>
                 <Route path="/share/:sid" element={<Home />}></Route>
                 <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>

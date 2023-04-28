@@ -5,6 +5,7 @@ import { GameBoard } from "./index";
 import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const Game = () => {
   const {
@@ -66,9 +67,17 @@ const Game = () => {
 
     if (user) {
       axios
-        .post(`${baseURL}/profile/get`, {
-          uid: user.user_id,
-        })
+        .post(
+          `${baseURL}/profile/get`,
+          {
+            uid: user.user_id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        )
         .then((response) => {
           if (response.data["success"]) {
             setCurrScore(response.data["profile"]["score"]);
@@ -83,15 +92,24 @@ const Game = () => {
 
   const updateUserRecord = () => {
     axios
-      .post(`${baseURL}/profile/update`, {
-        uid: user.user_id,
-        score: currScore,
-        easy: currEasy,
-        normal: currNormal,
-        hard: currHard,
-      })
+      .post(
+        `${baseURL}/profile/update`,
+        {
+          uid: user.user_id,
+          score: currScore,
+          easy: currEasy,
+          normal: currNormal,
+          hard: currHard,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.data["success"]) {
+          setCurrWinner(false);
         }
         console.log(response.data);
       });
@@ -116,7 +134,7 @@ const Game = () => {
       } else if (difficulty === "normal") {
         setCurrScore(currScore + 10);
         setCurrNormal(currNormal + 1);
-      } else {
+      } else if (difficulty === "hard") {
         setCurrScore(currScore + 20);
         setCurrHard(currHard + 1);
       }
@@ -174,8 +192,7 @@ const Game = () => {
                 Let's play Hangman!
               </h1>
               <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-                You should be able to select difficulty level and category later
-                at this page.
+                Easy - 5pts, Normal - 10pts, Hard - 20pts.
               </p>
               <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                 <button
@@ -197,12 +214,13 @@ const Game = () => {
                     ></path>
                   </svg>
                 </button>
-                <a
-                  href="#"
+                <NavLink
+                  target="_blank"
+                  to="https://en.wikipedia.org/wiki/Hangman_(game)"
                   className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 >
                   Learn more
-                </a>
+                </NavLink>
               </div>
             </div>
           </section>

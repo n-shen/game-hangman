@@ -22,9 +22,17 @@ const CmtTable = () => {
   useEffect(() => {
     if (user) {
       axios
-        .post(`${baseURL}/ctm/get`, {
-          customizeUser: user.user,
-        })
+        .post(
+          `${baseURL}/ctm/get`,
+          {
+            customizeUser: user.user,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        )
         .then((response) => {
           if (response.data["success"]) {
             dispatch({ type: "SET_CTMS", payload: response.data["ctms"] });

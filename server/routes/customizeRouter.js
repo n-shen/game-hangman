@@ -1,4 +1,5 @@
 import express from "express";
+import validAuth from "../middleware/validAuth.js";
 import {
   getCtm,
   postCtm,
@@ -8,6 +9,7 @@ import {
 
 const ctmRouter = express.Router();
 
+ctmRouter.use(validAuth);
 ctmRouter.post("/get", getCtm);
 ctmRouter.post("/post", postCtm);
 ctmRouter.post("/update", updateCtm);

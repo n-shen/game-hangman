@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { Customize } from "./customizeModel.js";
 
 const Schema = mongoose.Schema;
 
@@ -121,6 +122,15 @@ userSchema.statics.getRank = async function () {
   if (!ranking) throw Error("User record not found!");
 
   return ranking;
+};
+
+userSchema.statics.destroyProfile = async function (uid) {
+  if (!uid) throw Error("Missing required fields!");
+  const result = await this.findOneAndDelete({ _id: uid });
+  if (!result) throw Error("User record not found!");
+  await Customize.deleteMany({ fk_user: result.user_name });
+
+  return result;
 };
 
 const User = mongoose.model("User", userSchema);

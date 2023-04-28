@@ -43,15 +43,15 @@ export async function updateProfile(req, res) {
   }
 }
 
-export async function destroyCtm(req, res) {
+export async function destroyProfile(req, res) {
   try {
-    const { cid, fk_user } = req.body;
-    const ctm = await Customize.destroyCtm(cid, fk_user);
+    const { uid } = req.body;
+    const user = await User.destroyProfile(uid);
 
     res.json({
       success: true,
-      message: "Customize destroyed!",
-      ctm: ctm,
+      message: "User destroyed!",
+      user: user.user_name,
     });
   } catch (e) {
     res.json({
