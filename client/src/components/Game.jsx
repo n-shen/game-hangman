@@ -111,7 +111,7 @@ const Game = () => {
   }, [currScore]);
 
   return (
-    <div className="mt-5 w-full justify-center">
+    <div className="mt-5 justify-center">
       {!gameSession && (
         <section className="bg-white dark:bg-gray-900">
           <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
@@ -153,13 +153,21 @@ const Game = () => {
         </section>
       )}
 
-      {/*TODO: loop repeat random word from dictionary*/}
       {gameSession && currScore && (
-        <div className="justify-center w-full flex">Score: {currScore}</div>
+        <div className="flex w-full justify-center">
+          <p>Score: {currScore}</p>
+        </div>
       )}
-      {gameSession && currWord && <GameBoard word={currWord} />}
+      <div className="mt-5 flex w-full justify-center">
+        {gameSession && currWord && (
+          <div className="w-10/12">
+            <GameBoard word={currWord} />
+          </div>
+        )}
+      </div>
+
       {gameSession && currWord && (
-        <div>
+        <div className="mt-5 flex w-full justify-center">
           <button
             className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-2 hover:bg-gray-200 transition-colors duration-300"
             onClick={() => {
