@@ -37,13 +37,13 @@ const CmtTable = () => {
           if (response.data["success"]) {
             dispatch({ type: "SET_CTMS", payload: response.data["ctms"] });
           }
-          console.log(response.data);
+          // console.log(response.data);
         });
     }
   }, [user, dispatch, baseURL]);
 
   const handleDelete = (ele) => {
-    console.log("delete", ele);
+    // console.log("delete", ele);
     axios
       .post(
         `${baseURL}/ctm/destroy`,

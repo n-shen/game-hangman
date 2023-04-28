@@ -35,7 +35,7 @@ const ShareGame = () => {
   }, [sharingProfile]);
 
   useEffect(() => {
-    console.log("dictionary", dictionary);
+    // console.log("dictionary", dictionary);
     if (dictionary) {
       setCurrWord(dictionary[0]);
       setDictionaryLength(dictionary.length);

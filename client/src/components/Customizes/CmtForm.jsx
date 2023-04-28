@@ -60,7 +60,7 @@ const CmtForm = () => {
       )
       .then((response) => {
         setLoading(false);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data["success"]) {
           setError("");
           setMessage("A new dictionary has been created!");

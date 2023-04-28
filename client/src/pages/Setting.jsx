@@ -28,7 +28,7 @@ const Setting = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data["success"]) {
           logout();
         } else {

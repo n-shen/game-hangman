@@ -62,7 +62,7 @@ const Game = () => {
           setGameSession(true);
           setCurrScore(0);
         }
-        console.log(response.data);
+        // console.log(response.data);
       });
 
     if (user) {
@@ -85,7 +85,7 @@ const Game = () => {
             setCurrNormal(response.data["profile"]["rounds_normal"]);
             setCurrHard(response.data["profile"]["rounds_hard"]);
           }
-          console.log("latest profile:", response.data);
+          // console.log("latest profile:", response.data);
         });
     }
   };
@@ -111,22 +111,18 @@ const Game = () => {
         if (response.data["success"]) {
           setCurrWinner(false);
         }
-        console.log(response.data);
+        // console.log(response.data);
       });
   };
 
   useEffect(() => {
-    console.log("dictionary", dictionary);
+    // console.log("dictionary", dictionary);
     if (dictionary)
       setCurrWord(dictionary[Math.floor(Math.random() * dictionary.length)]);
   }, [dictionary, setCurrWord]);
 
   useEffect(() => {
-    console.log(currWord);
-  }, [currWord]);
-
-  useEffect(() => {
-    console.log("win?:", currWinner);
+    // console.log("win?:", currWinner);
     if (currWinner) {
       if (difficulty === "easy") {
         setCurrScore(currScore + 5);
@@ -144,7 +140,7 @@ const Game = () => {
   useEffect(() => {
     if (currWinner) {
       if (user) updateUserRecord();
-      console.log("updating user score:", currScore);
+      // console.log("updating user score:", currScore);
       setCurrWinner(false);
     }
   }, [currScore]);
