@@ -38,6 +38,10 @@ const Game = () => {
         }
         console.log(response.data);
       });
+
+    if (user) {
+      console.log(user.profile);
+    }
   };
 
   const updateUserRecord = (d) => {

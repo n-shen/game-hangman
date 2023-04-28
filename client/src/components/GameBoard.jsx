@@ -62,13 +62,11 @@ const GameBoard = () => {
       </button>
     ));
 
-  const wordLetters = currWord
-    .split("")
-    .map((letter) => (
-      <span className="mx-2 mb-2 text-2xl">
-        {guessedLetters.includes(letter) ? letter : "_"}
-      </span>
-    ));
+  const wordLetters = currWord.split("").map((letter, index) => (
+    <span key={index} className="mx-2 mb-2 text-2xl">
+      {guessedLetters.includes(letter) ? letter : "_"}
+    </span>
+  ));
 
   const statusMessage = isWinner
     ? "You win!"
