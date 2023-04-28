@@ -33,7 +33,7 @@ const Sidebar = () => {
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dart:text-white text-slate-900"
             >
               <IoLogoGameControllerA />
-              <span>Hangman Game</span>
+              <span>Hangman Online</span>
             </Link>
 
             <div>

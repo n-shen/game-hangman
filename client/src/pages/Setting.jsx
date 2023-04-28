@@ -40,7 +40,7 @@ const Setting = () => {
   return (
     <div className={screenSize >= 900 ? "mt-0" : "mt-16"}>
       <h2 className="text-center font-bold">
-        After deletion, all your data including customized dictionarys will be
+        After deletion, all your data including customized dictionary will be
         lost.
       </h2>
       {error && (

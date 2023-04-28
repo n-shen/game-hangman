@@ -5,6 +5,7 @@ import { GameBoard } from "./index";
 import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 const Game = () => {
   const {
@@ -213,12 +214,13 @@ const Game = () => {
                     ></path>
                   </svg>
                 </button>
-                <a
-                  href="#"
+                <NavLink
+                  target="_blank"
+                  to="https://en.wikipedia.org/wiki/Hangman_(game)"
                   className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                 >
                   Learn more
-                </a>
+                </NavLink>
               </div>
             </div>
           </section>
