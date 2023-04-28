@@ -13,6 +13,9 @@ export const StateContextProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(undefined);
   const [currWord, setCurrWord] = useState(undefined);
   const [currScore, setCurrScore] = useState(0);
+  const [currEasy, setCurrEasy] = useState(0);
+  const [currNormal, setCurrNormal] = useState(0);
+  const [currHard, setCurrHard] = useState(0);
   const [currWinner, setCurrWinner] = useState(false);
   const [newRound, setNewRound] = useState(false);
 
@@ -34,6 +37,12 @@ export const StateContextProvider = ({ children }) => {
         setCurrScore,
         currWinner,
         setCurrWinner,
+        currEasy,
+        setCurrEasy,
+        currNormal,
+        setCurrNormal,
+        currHard,
+        setCurrHard,
       }}
     >
       {children}

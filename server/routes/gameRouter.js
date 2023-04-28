@@ -11,6 +11,4 @@ gameRouter.post("/dictionary", getDictionary);
 gameRouter.post("/sharingdictionary", getSharingDictionary);
 gameRouter.get("/rank", getRank);
 
-// gameRouter.post("/signup", signup);
-
 export default gameRouter;

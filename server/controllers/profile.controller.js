@@ -25,10 +25,10 @@ export async function getProfile(req, res) {
 }
 
 export async function updateProfile(req, res) {
-  const { uid, score } = req.body;
+  const { uid, score, easy, normal, hard } = req.body;
 
   try {
-    const newProfile = await User.updateProfile(uid, score);
+    const newProfile = await User.updateProfile(uid, score, easy, normal, hard);
 
     res.json({
       success: true,

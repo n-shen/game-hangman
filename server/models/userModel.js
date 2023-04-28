@@ -85,13 +85,22 @@ userSchema.statics.getProfile = async function (uid) {
   return pre_user;
 };
 
-userSchema.statics.updateProfile = async function (uid, score) {
+userSchema.statics.updateProfile = async function (
+  uid,
+  score,
+  easy,
+  normal,
+  hard
+) {
   if (!uid || !score) throw Error("Missing required fields!");
 
   const updatedProfile = await this.findOneAndUpdate(
     { _id: uid },
     {
       score: score,
+      rounds_easy: easy,
+      rounds_normal: normal,
+      rounds_hard: hard,
     },
     {
       new: true,

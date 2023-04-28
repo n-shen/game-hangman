@@ -15,6 +15,12 @@ const Game = () => {
     setCurrScore,
     currWinner,
     setCurrWinner,
+    currEasy,
+    setCurrEasy,
+    currNormal,
+    setCurrNormal,
+    currHard,
+    setCurrHard,
   } = useStateContext();
   const baseURL = shared_info.baseURL;
 
@@ -47,6 +53,7 @@ const Game = () => {
         .then((response) => {
           if (response.data["success"]) {
             setCurrScore(response.data["profile"]["score"]);
+            setCurrEasy(response.data["profile"]["rounds_easy"]);
           }
           console.log("latest profile:", response.data);
         });
@@ -58,6 +65,9 @@ const Game = () => {
       .post(`${baseURL}/profile/update`, {
         uid: user.user_id,
         score: currScore,
+        easy: currEasy,
+        normal: currNormal,
+        hard: currHard,
       })
       .then((response) => {
         if (response.data["success"]) {
@@ -79,10 +89,16 @@ const Game = () => {
   useEffect(() => {
     console.log("win?:", currWinner);
     if (currWinner) {
-      // console.log("category?:", category);
-      if (difficulty === "easy") setCurrScore(currScore + 5);
-      else if (difficulty === "normal") setCurrScore(currScore + 10);
-      else setCurrScore(currScore + 20);
+      if (difficulty === "easy") {
+        setCurrScore(currScore + 5);
+        setCurrEasy(currEasy + 1);
+      } else if (difficulty === "normal") {
+        setCurrScore(currScore + 10);
+        setCurrNormal(currNormal + 1);
+      } else {
+        setCurrScore(currScore + 20);
+        setCurrHard(currHard + 1);
+      }
     }
   }, [currWinner]);
 
