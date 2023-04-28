@@ -92,6 +92,7 @@ const Game = () => {
       })
       .then((response) => {
         if (response.data["success"]) {
+          setCurrWinner(false);
         }
         console.log(response.data);
       });
@@ -116,7 +117,7 @@ const Game = () => {
       } else if (difficulty === "normal") {
         setCurrScore(currScore + 10);
         setCurrNormal(currNormal + 1);
-      } else {
+      } else if (difficulty === "hard") {
         setCurrScore(currScore + 20);
         setCurrHard(currHard + 1);
       }

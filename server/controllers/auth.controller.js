@@ -51,6 +51,14 @@ export async function signup(req, res) {
       success: true,
       message: "New user created!",
       user: userName,
+      user_id: userProfile._id,
+      profile: {
+        score: userProfile["score"],
+        duration: userProfile["duration"],
+        rounds_easy: userProfile["rounds_easy"],
+        rounds_normal: userProfile["rounds_normal"],
+        rounds_hard: userProfile["rounds_hard"],
+      },
       token: token,
     });
   } catch (e) {
