@@ -1,14 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/StateContext";
+import { motion } from "framer-motion";
+import avatar from "../assets/avatars/panda.png";
 import "tailwindcss/tailwind.css";
 import "./GameBoard.css";
 
 const GameBoard = () => {
-  const { currWord, newRound, setNewRound, setCurrWinner } = useStateContext();
+  const {
+    currWord,
+    newRound,
+    setNewRound,
+    setCurrWinner,
+    screenSize,
+    activeMenu,
+  } = useStateContext();
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [guessesLeft, setGuessesLeft] = useState(6);
+  const [guessesLeft, setGuessesLeft] = useState(7);
   const [answer, setAnswer] = useState("");
   const [isGameOver, setIsGameOver] = useState(false);
+  const [move, setMove] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [manTop, setManTop] = useState(0);
+  const [manRight, setManRight] = useState(0);
+
+  useEffect(() => {
+    let manRect = document.getElementById("man").getBoundingClientRect();
+    setManTop(manRect.top);
+    setManRight(activeMenu ? manRect.right - 296 : manRect.right - 40);
+    // console.log(manRect.top, manRect.right);
+  }, [screenSize, activeMenu]);
+
+  useEffect(() => {
+    setMove(true);
+    switch (guessesLeft) {
+      case 7:
+        setPosition(0);
+        break;
+      case 6:
+        setPosition(manTop / 3.0);
+        break;
+      case 5:
+        setPosition((manTop * 2) / 3.0);
+        break;
+      case 4:
+        setPosition(manTop);
+        break;
+      case 2:
+        setPosition((manTop * 2) / 3.0);
+        break;
+      case 1:
+        setPosition(manTop / 3.0);
+        break;
+      case 0:
+        setPosition(0);
+        break;
+      default:
+    }
+  }, [guessesLeft]);
 
   const gameOver = guessesLeft === 0;
   const isWinner = currWord
@@ -25,7 +73,7 @@ const GameBoard = () => {
 
   useEffect(() => {
     setGuessedLetters([]);
-    setGuessesLeft(6);
+    setGuessesLeft(7);
     setNewRound(false);
     setIsGameOver(false);
   }, [newRound, setNewRound]);
@@ -108,6 +156,53 @@ const GameBoard = () => {
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
       <div className="flex flex-col items-center justify-center mt-4 mb-4">
+        <div className="w-full">
+          <motion.div
+            className="ring"
+            style={{
+              height: manTop + 50,
+              right: manRight,
+              top: -manTop - 40,
+              background: guessesLeft > 3 ? "black" : "red",
+              width: guessesLeft > 3 ? "5px" : "8px",
+            }}
+            animate={{ y: move ? position : 0 }}
+          />
+          <motion.div
+            className="man2"
+            style={{
+              top: -manTop + 200,
+              right: manRight - 50,
+              background: "red",
+              border: "2px",
+              visibility: guessesLeft > 3 ? "hidden" : "visible",
+            }}
+            animate={{ y: move ? position : 0 }}
+          >
+            <img
+              style={{
+                height: 100,
+                width: 100,
+                visibility: guessesLeft > 3 ? "hidden" : "visible",
+              }}
+              src={avatar}
+              alt="Avatar"
+              className="w-10 h-10 rounded-full mr-4"
+            />
+          </motion.div>
+        </div>
+
+        <img
+          id="man"
+          style={{
+            height: 100,
+            width: 100,
+            visibility: guessesLeft <= 3 ? "hidden" : "visible",
+          }}
+          src={avatar}
+          alt="Avatar"
+          className="w-10 h-10 rounded-full mr-4"
+        />
         <p
           className={`text-xl md:text-2xl font-bold mt-8 ${
             isWinner
@@ -119,12 +214,12 @@ const GameBoard = () => {
         >
           {statusMessage}
         </p>
-        <div className="flex flex-wrap mt-10">{wordLetters}</div>
         {gameOver && (
-          <p className="text-xl font-bold mb-8">
+          <p className="text-xl font-bold">
             The word was: <span className="text-green-500">{answer}</span>
           </p>
         )}
+        <div className="flex flex-wrap mt-10">{wordLetters}</div>
         <div className="items-center justify-center px-2 py-2 border-2 border-sky-500/100 rounded-lg">
           <div className="">{keyboard_top}</div>
           <div className="pl-5">{keyboard_mid}</div>
