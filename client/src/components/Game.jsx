@@ -59,6 +59,7 @@ const Game = () => {
         if (response.data["success"]) {
           setDictionary([...response.data["dictionary"]]);
           setGameSession(true);
+          setCurrScore(0);
         }
         console.log(response.data);
       });
@@ -72,6 +73,8 @@ const Game = () => {
           if (response.data["success"]) {
             setCurrScore(response.data["profile"]["score"]);
             setCurrEasy(response.data["profile"]["rounds_easy"]);
+            setCurrNormal(response.data["profile"]["rounds_normal"]);
+            setCurrHard(response.data["profile"]["rounds_hard"]);
           }
           console.log("latest profile:", response.data);
         });
@@ -98,7 +101,7 @@ const Game = () => {
     console.log("dictionary", dictionary);
     if (dictionary)
       setCurrWord(dictionary[Math.floor(Math.random() * dictionary.length)]);
-  }, [dictionary]);
+  }, [dictionary, setCurrWord]);
 
   useEffect(() => {
     console.log(currWord);
@@ -121,8 +124,8 @@ const Game = () => {
   }, [currWinner]);
 
   useEffect(() => {
-    if (currWinner && user) {
-      updateUserRecord();
+    if (currWinner) {
+      if (user) updateUserRecord();
       console.log("updating user score:", currScore);
       setCurrWinner(false);
     }
@@ -206,7 +209,7 @@ const Game = () => {
         </div>
       )}
 
-      {gameSession && currScore && (
+      {gameSession && currWord && (
         <div className="w-full justify-center">
           <div className="title flex justify-center items-start mt-0">
             {titleLetters}

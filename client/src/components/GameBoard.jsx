@@ -27,6 +27,7 @@ const GameBoard = () => {
     setGuessedLetters([]);
     setGuessesLeft(6);
     setNewRound(false);
+    setIsGameOver(false);
   }, [newRound, setNewRound]);
 
   useEffect(() => {
