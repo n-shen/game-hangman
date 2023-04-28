@@ -1,0 +1,10 @@
+runtime: nodejs18
+env: standard
+
+handlers:
+  - url: /.*
+    script: start
+
+instance_class: F1
+automatic_scaling:
+  max_instances: 3
