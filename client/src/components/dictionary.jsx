@@ -23,7 +23,7 @@ const dictionary = {
       "jaguar",
       "eel",
     ],
-    medium: [
+    normal: [
       "alligator",
       "antelope",
       "armadillo",
@@ -94,7 +94,7 @@ const dictionary = {
       "ukraine",
       "barbados",
     ],
-    medium: [
+    normal: [
       "andorra",
       "armenia",
       "bahrain",
@@ -165,7 +165,7 @@ const dictionary = {
       "diving",
       "cycling",
     ],
-    medium: [
+    normal: [
       "fencing",
       "gymnastics",
       "lacrosse",
@@ -241,7 +241,7 @@ const dictionary = {
       "eggroll",
       "dumpling",
     ],
-    medium: [
+    normal: [
       "adulthood",
       "baseboards",
       "pangolin",
@@ -319,7 +319,7 @@ const dictionary = {
       "guava",
       "fig",
     ],
-    medium: [
+    normal: [
       "grapefruit",
       "honeydew",
       "lychee",
@@ -389,7 +389,7 @@ const dictionary = {
       "pulp fiction",
       "the terminator",
     ],
-    medium: [
+    normal: [
       "the godfather",
       "the shining",
       "wizard of oz",
@@ -460,7 +460,7 @@ const dictionary = {
       "petunia",
       "zinnia",
     ],
-    medium: [
+    normal: [
       "azalea",
       "begonia",
       "bougainvillea",

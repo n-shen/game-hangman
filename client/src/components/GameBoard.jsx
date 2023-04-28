@@ -16,8 +16,12 @@ const GameBoard = () => {
     .every((letter) => guessedLetters.includes(letter));
 
   useEffect(() => {
-    if (isWinner) setCurrWinner(true);
-  }, [isWinner]);
+    setAnswer(selectedWord);
+    if (guessesLeft === 0 || isWinner) {
+      if (isWinner) setCurrWinner(true);
+      setIsGameOver(true);
+    }
+  }, [guessesLeft, isWinner, selectedWord]);
 
   useEffect(() => {
     setGuessedLetters([]);
@@ -32,11 +36,13 @@ const GameBoard = () => {
         handleGuess(letter);
       }
     };
-    document.addEventListener("keydown", handleKeyDown);
+    if (!isGameOver) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [guessedLetters]);
+  }, [guessedLetters, isGameOver]);
 
   const handleGuess = (letter) => {
     if (!guessedLetters.includes(letter)) {
@@ -76,9 +82,25 @@ const GameBoard = () => {
 
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
-      <div className="flex flex-col items-center justify-center mt-4 mb-4">
-        <div className="flex flex-wrap mb-8 mt-10">{wordLetters}</div>
-        <div className="flex flex-wrap pl-4">{keyboardLetters}</div>
+      {/* {word && <div>{word}</div>} */}
+
+      <div className="min-h-screen flex flex-col items-center justify-center mt-4 mb-4">
+        <div className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-0 mb-12 hover:bg-gray-200 transition-colors duration-300">
+          Score: {isWinner ? score + 10 : score}
+        </div>
+        <div className="title flex justify-center items-start mt-0">
+          {titleLetters}
+        </div>
+        <div className="flex flex-wrap mt-10">{wordLetters}</div>
+        {gameOver && (
+          <p className="text-xl font-bold mb-8">
+            The word was: <span className="text-green-500">{answer}</span>
+          </p>
+        )}
+        <div className="flex flex-wrap pl-4 items-center justify-center">
+          {keyboardLetters}
+        </div>
+
         <p
           className={`text-xl md:text-2xl font-bold mt-8 ${
             isWinner
