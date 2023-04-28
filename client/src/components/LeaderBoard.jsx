@@ -13,13 +13,6 @@ function LeaderBoard() {
     "/avatars/man.png",
     "/avatars/girl2.png",
   ];
-  // const va = useState([
-  //   { id: 1, user_name: "Player 1", score: 10, image: "/avatars/panda.png" },
-  //   { id: 2, user_name: "Player 2", score: 20, image: "/avatars/hacker.png" },
-  //   { id: 3, user_name: "Player 3", score: 30, image: "/avatars/girl.png" },
-  //   { id: 4, user_name: "Player 4", score: 40, image: "/avatars/man.png" },
-  //   { id: 5, user_name: "Player 5", score: 50, image: "/avatars/girl2.png" },
-  // ]);
 
   const [rank, setRank] = useState([]);
 
