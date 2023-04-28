@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../contexts/StateContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { GameBoard } from "./index";
 
 import axios from "axios";
 
 const Game = () => {
-  const { shared_info } = useStateContext();
+  const {
+    shared_info,
+    currWord,
+    setCurrWord,
+    setNewRound,
+    currScore,
+    setCurrScore,
+    currWinner,
+    setCurrWinner,
+  } = useStateContext();
   const baseURL = shared_info.baseURL;
+
+  const { user } = useAuthContext();
 
   const [dictionary, setDictionary] = useState([]);
   const [difficulty, setDifficulty] = useState("easy");
@@ -28,12 +40,44 @@ const Game = () => {
       });
   };
 
+  const updateUserRecord = (d) => {
+    axios
+      .post(`${baseURL}/game/dictionary`, {
+        difficulty: 0,
+      })
+      .then((response) => {
+        if (response.data["success"]) {
+        }
+        console.log(response.data);
+      });
+  };
+
   useEffect(() => {
     console.log("dictionary", dictionary);
+    if (dictionary)
+      setCurrWord(dictionary[Math.floor(Math.random() * dictionary.length)]);
   }, [dictionary]);
 
+  useEffect(() => {
+    console.log(currWord);
+  }, [currWord]);
+
+  useEffect(() => {
+    console.log("win?:", currWinner);
+    if (currWinner) {
+      setCurrScore(currScore + 10);
+    }
+  }, [currWinner]);
+
+  useEffect(() => {
+    if (currWinner && user) {
+      console.log("updating user score:", currScore);
+      setCurrWinner(false);
+    }
+  }, [currScore]);
+
   return (
-    <div className="mt-5 flex w-full justify-center">
+    <div className="mt-5 w-full justify-center">
       {!gameSession && (
         <section className="bg-white dark:bg-gray-900">
           <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
@@ -76,7 +120,26 @@ const Game = () => {
       )}
 
       {/*TODO: loop repeat random word from dictionary*/}
-      {gameSession && <GameBoard word={dictionary[0]} />}
+      {gameSession && currScore && (
+        <div className="justify-center w-full flex">Score: {currScore}</div>
+      )}
+      {gameSession && currWord && <GameBoard word={currWord} />}
+      {gameSession && currWord && (
+        <div>
+          <button
+            className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-2 hover:bg-gray-200 transition-colors duration-300"
+            onClick={() => {
+              setCurrWord(
+                dictionary[Math.floor(Math.random() * dictionary.length)]
+              );
+              setNewRound(true);
+              setCurrWinner(false);
+            }}
+          >
+            New Round
+          </button>
+        </div>
+      )}
     </div>
   );
 };
