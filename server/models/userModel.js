@@ -103,6 +103,17 @@ userSchema.statics.updateProfile = async function (uid, score) {
   return updatedProfile;
 };
 
+userSchema.statics.getRank = async function () {
+  const ranking = await this.find({})
+    .select("user_name -_id score rounds_easy rounds_normal rounds_hard")
+    .sort({
+      score: -1,
+    });
+  if (!ranking) throw Error("User record not found!");
+
+  return ranking;
+};
+
 const User = mongoose.model("User", userSchema);
 
 export { User };

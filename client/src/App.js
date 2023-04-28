@@ -2,14 +2,18 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Navbar, Sidebar } from "./components";
-import { Customizes, Home, Login, Register, Setting } from "./pages";
+import {
+  Customizes,
+  Home,
+  Login,
+  Register,
+  Setting,
+  Leaderboard,
+} from "./pages";
 
 import { useStateContext } from "./contexts/StateContext";
 import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css";
-
-import Leaderboard from "./components/Leaderboard";
-
 
 function App() {
   const { activeMenu } = useStateContext();

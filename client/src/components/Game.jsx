@@ -47,7 +47,6 @@ const Game = () => {
         .then((response) => {
           if (response.data["success"]) {
             setCurrScore(response.data["profile"]["score"]);
-            // setCurrScore(true);
           }
           console.log("latest profile:", response.data);
         });
