@@ -6,8 +6,8 @@ import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
 
-const ShareGame = () => {
-  const { sid } = useParams();
+const ShareGame = ({ sid }) => {
+  // const { sid } = useParams();
   const { shared_info, currWord, setCurrWord, setNewRound, setCurrWinner } =
     useStateContext();
   const baseURL = shared_info.baseURL;
@@ -35,7 +35,7 @@ const ShareGame = () => {
   }, [sharingProfile]);
 
   useEffect(() => {
-    console.log("dictionary", dictionary);
+    // console.log("dictionary", dictionary);
     if (dictionary) {
       setCurrWord(dictionary[0]);
       setDictionaryLength(dictionary.length);

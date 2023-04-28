@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 dotenv.config();
 const app = express();
 
-// app.use(express.static("build"));
+app.use(express.static("build"));
 
 app.use(cors());
 app.use(express.json());

@@ -20,7 +20,7 @@ function LeaderBoard() {
       if (response.data["success"]) {
         setRank([...response.data["rank"]]);
       }
-      console.log(response.data);
+      // console.log(response.data);
     });
   }, [setRank, baseURL]);
 
