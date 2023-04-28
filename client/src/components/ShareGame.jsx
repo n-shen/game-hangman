@@ -49,8 +49,12 @@ const ShareGame = () => {
           <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
               <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                {sharingProfile["fk_user"]} invited you to play customized
-                Hangman: {sharingProfile["title"]}!
+                <span className="text-green-500">
+                  {sharingProfile["fk_user"]}
+                </span>{" "}
+                invited you to play customized Hangman:{" "}
+                <span className="text-blue-500">{sharingProfile["title"]}</span>
+                !
               </h1>
               <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
                 {sharingProfile["description"]}

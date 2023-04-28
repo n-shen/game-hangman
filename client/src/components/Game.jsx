@@ -191,8 +191,7 @@ const Game = () => {
                 Let's play Hangman!
               </h1>
               <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-                You should be able to select difficulty level and category later
-                at this page.
+                Easy - 5pts, Normal - 10pts, Hard - 20pts.
               </p>
               <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                 <button
