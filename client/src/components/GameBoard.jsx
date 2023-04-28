@@ -5,10 +5,10 @@ import "./GameBoard.css";
 
 const GameBoard = () => {
   const { currWord, newRound, setNewRound, setCurrWinner } = useStateContext();
-
-  const [roundTime, setRoundTime] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [guessesLeft, setGuessesLeft] = useState(6);
+  const [answer, setAnswer] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const gameOver = guessesLeft === 0;
   const isWinner = currWord
@@ -16,12 +16,12 @@ const GameBoard = () => {
     .every((letter) => guessedLetters.includes(letter));
 
   useEffect(() => {
-    setAnswer(selectedWord);
+    setAnswer(currWord);
     if (guessesLeft === 0 || isWinner) {
       if (isWinner) setCurrWinner(true);
       setIsGameOver(true);
     }
-  }, [guessesLeft, isWinner, selectedWord]);
+  }, [guessesLeft, isWinner, currWord]);
 
   useEffect(() => {
     setGuessedLetters([]);
@@ -82,15 +82,7 @@ const GameBoard = () => {
 
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
-      {/* {word && <div>{word}</div>} */}
-
-      <div className="min-h-screen flex flex-col items-center justify-center mt-4 mb-4">
-        <div className="bg-blue-500 text-white text-gray-800 font-bold py-2 px-4 rounded-lg mt-0 mb-12 hover:bg-gray-200 transition-colors duration-300">
-          Score: {isWinner ? score + 10 : score}
-        </div>
-        <div className="title flex justify-center items-start mt-0">
-          {titleLetters}
-        </div>
+      <div className="flex flex-col items-center justify-center mt-4 mb-4">
         <div className="flex flex-wrap mt-10">{wordLetters}</div>
         {gameOver && (
           <p className="text-xl font-bold mb-8">
