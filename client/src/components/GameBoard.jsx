@@ -27,6 +27,7 @@ const GameBoard = () => {
     setGuessedLetters([]);
     setGuessesLeft(6);
     setNewRound(false);
+    setIsGameOver(false);
   }, [newRound, setNewRound]);
 
   useEffect(() => {
@@ -53,20 +54,44 @@ const GameBoard = () => {
     }
   };
 
-  const keyboardLetters = "abcdefghijklmnopqrstuvwxyz"
-    .split("")
-    .map((letter) => (
-      <button
-        key={letter}
-        className={`bg-sky-500/100 text-white font-bold py-2 px-4 rounded-lg mr-2 mb-2 ${
-          guessedLetters.includes(letter) ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-        disabled={gameOver || isWinner || guessedLetters.includes(letter)}
-        onClick={() => handleGuess(letter)}
-      >
-        {letter}
-      </button>
-    ));
+  const keyboard_top = "qwertyuiop".split("").map((letter) => (
+    <button
+      key={letter}
+      className={`w-2 h-6 md:w-10 md:h-10 bg-sky-500/100 text-white md:font-bold font-light pb-1 md:py-1 md:px-2 pr-4 pl-2 rounded md:rounded-lg mr-1 mb-1 md:mb-2 ${
+        guessedLetters.includes(letter) ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      disabled={gameOver || isWinner || guessedLetters.includes(letter)}
+      onClick={() => handleGuess(letter)}
+    >
+      {letter}
+    </button>
+  ));
+
+  const keyboard_mid = "asdfghjkl".split("").map((letter) => (
+    <button
+      key={letter}
+      className={`w-2 h-6 md:w-10 md:h-10 bg-sky-500/100 text-white md:font-bold font-light pb-1 md:py-1 md:px-2 pr-4 pl-2 rounded md:rounded-lg mr-1 mb-1 md:mb-2 ${
+        guessedLetters.includes(letter) ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      disabled={gameOver || isWinner || guessedLetters.includes(letter)}
+      onClick={() => handleGuess(letter)}
+    >
+      {letter}
+    </button>
+  ));
+
+  const keyboard_btm = "zxcvbnm".split("").map((letter) => (
+    <button
+      key={letter}
+      className={`w-2 h-6 md:w-10 md:h-10 bg-sky-500/100 text-white md:font-bold font-light pb-1 md:py-1 md:px-2 pr-4 pl-2 rounded md:rounded-lg mr-1 mb-1 md:mb-2 ${
+        guessedLetters.includes(letter) ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      disabled={gameOver || isWinner || guessedLetters.includes(letter)}
+      onClick={() => handleGuess(letter)}
+    >
+      {letter}
+    </button>
+  ));
 
   const wordLetters = currWord.split("").map((letter, index) => (
     <span key={index} className="mx-2 mb-2 text-2xl">
@@ -83,16 +108,6 @@ const GameBoard = () => {
   return (
     <div className="mt-5 flex w-full justify-center border-2 border-sky-500/100">
       <div className="flex flex-col items-center justify-center mt-4 mb-4">
-        <div className="flex flex-wrap mt-10">{wordLetters}</div>
-        {gameOver && (
-          <p className="text-xl font-bold mb-8">
-            The word was: <span className="text-green-500">{answer}</span>
-          </p>
-        )}
-        <div className="flex flex-wrap pl-4 items-center justify-center">
-          {keyboardLetters}
-        </div>
-
         <p
           className={`text-xl md:text-2xl font-bold mt-8 ${
             isWinner
@@ -104,6 +119,17 @@ const GameBoard = () => {
         >
           {statusMessage}
         </p>
+        <div className="flex flex-wrap mt-10">{wordLetters}</div>
+        {gameOver && (
+          <p className="text-xl font-bold mb-8">
+            The word was: <span className="text-green-500">{answer}</span>
+          </p>
+        )}
+        <div className="items-center justify-center px-2 py-2 border-2 border-sky-500/100 rounded-lg">
+          <div className="">{keyboard_top}</div>
+          <div className="pl-5">{keyboard_mid}</div>
+          <div className="pl-9">{keyboard_btm}</div>
+        </div>
       </div>
     </div>
   );
