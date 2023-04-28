@@ -6,8 +6,8 @@ import { titleLetters } from "./GameBoard";
 
 import axios from "axios";
 
-const ShareGame = () => {
-  const { sid } = useParams();
+const ShareGame = ({ sid }) => {
+  // const { sid } = useParams();
   const { shared_info, currWord, setCurrWord, setNewRound, setCurrWinner } =
     useStateContext();
   const baseURL = shared_info.baseURL;

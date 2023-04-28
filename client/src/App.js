@@ -61,7 +61,7 @@ function App() {
                   path="/setting"
                   element={user ? <Setting /> : <Login />}
                 ></Route>
-                <Route path="/share/:sid" element={<Home />}></Route>
+                {/*<Route path="/share/:sid" element={<Home />}></Route>*/}
                 <Route path="/rank" element={<Leaderboard />}></Route>
               </Routes>
             </div>
