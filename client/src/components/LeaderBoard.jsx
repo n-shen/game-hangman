@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import panda from "../assets/avatars/panda.png";
+import hacker from "../assets/avatars/hacker.png";
+import girl from "../assets/avatars/girl.png";
+import girl2 from "../assets/avatars/girl2.png";
+import man from "../assets/avatars/man.png";
 
 import { useStateContext } from "../contexts/StateContext";
 import axios from "axios";
@@ -6,13 +11,7 @@ import axios from "axios";
 function LeaderBoard() {
   const { shared_info } = useStateContext();
   const baseURL = shared_info.baseURL;
-  const avatars = [
-    "/avatars/panda.png",
-    "/avatars/hacker.png",
-    "/avatars/girl.png",
-    "/avatars/man.png",
-    "/avatars/girl2.png",
-  ];
+  const avatars = [panda, hacker, girl, girl2, man];
 
   const [rank, setRank] = useState([]);
 
@@ -58,7 +57,9 @@ function LeaderBoard() {
                   key={index}
                   className={index % 2 === 0 ? "bg-gray-200" : ""}
                 >
-                  <td className="py-4 px-4 font-bold">{index + 1}</td>
+                  <td className="py-4 px-4 text-center font-bold">
+                    {index + 1}
+                  </td>
                   <td className="py-4 px-4 flex items-center">
                     <img
                       src={avatars[0]}
