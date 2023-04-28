@@ -11,9 +11,11 @@ function Leaderboard() {
         {'id': 5, 'user_name': 'Player 5', 'score': 50, 'image': '/avatars/girl2.png'},
     ]);
 
+    const [sortedPlayers, setSortedPlayers] = useState([]);
+
     useEffect(() => {
-          const sortedPlayers = players.sort((a, b) => b.score - a.score);
-          setPlayers(sortedPlayers);
+          const sortPlayers = players.sort((a, b) => b.score - a.score);
+          setSortedPlayers(sortPlayers);
     }, []);
 
     return (
@@ -29,7 +31,7 @@ function Leaderboard() {
                 </tr>
               </thead>
               <tbody>
-                {players.map((player, index) => (
+                {(sortedPlayers) ? (sortedPlayers.map((player, index) => (
                   <tr key={player.id} className={index % 2 === 0 ? 'bg-gray-200' : ''}>
                     <td className="py-4 px-4 font-bold">{index + 1}</td>
                     <td className="py-4 px-4 flex items-center">
@@ -38,7 +40,7 @@ function Leaderboard() {
                     </td>
                     <td className="py-4 px-4 font-bold text-green-500">{player.score}</td>
                   </tr>
-                ))}
+                ))) : (<div>Loading...</div>)}
               </tbody>
             </table>
           </div>
